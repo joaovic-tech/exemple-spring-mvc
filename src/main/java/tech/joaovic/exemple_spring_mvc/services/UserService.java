@@ -67,23 +67,21 @@ public class UserService implements IUserService {
     }
 
     private UserModel saveUserWithCEP(UserModel userModel) {
-        String cep = userModel.getAddressModel().getCep();
+        AddressModel address = findOrCreateAddress(userModel.getAddressModel().getCep());
+        userModel.setAddressModel(address);
+        return this.iUserRepository.save(userModel);
+    }
 
-        if (cep.length() != 8) {
+    private AddressModel findOrCreateAddress(String cep) {
+        if (cep == null || cep.length() != 8) {
             throw new IllegalArgumentException("CEP inválido");
         }
-
-        AddressModel addressModel = this.iAddressRepository.findById(cep).orElseGet(() -> {
+        return this.iAddressRepository.findById(cep).orElseGet(() -> {
             AddressModel newAddress = viaCepService.findByCep(cep);
-
-            if (newAddress.getCep() == null) {
+            if (newAddress == null || newAddress.getCep() == null) {
                 throw new NotFoundException("CEP não encontrado");
             }
-
             return this.iAddressRepository.save(newAddress);
         });
-
-        userModel.setAddressModel(addressModel);
-        return this.iUserRepository.save(userModel);
     }
 }

@@ -79,7 +79,10 @@ cd exemple-spring-mvc
 }
 ```
 
-## 🤝 Contribuição
+## 📚 Documentação e Acesso ao Banco
+
+- **Swagger-UI**: Acesse a documentação interativa da API em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).
+- **Console H2**: Para acessar o banco de dados em memória, utilize [http://localhost:8080/h2-console](http://localhost:8080/h2-console) e configure o JDBC URL como `jdbc:h2:mem:testdb`.
 
 
 Este projeto está aberto a contribuições! Sinta-se à vontade para abrir uma com dúvidas ou sugestões, ou faça um fork para propor melhorias por meio de pull requests.
